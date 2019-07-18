@@ -52,16 +52,19 @@ require_once('class_bd.php');
 		// método para eliminar un registoro, recibe como parámetro el id
 		public function eliminar($id){
 			$db=Db::conectar();
-			$eliminar=$db->prepare('DELETE FROM newsfeed WHERE ID=:id');
+			//$eliminar=$db->prepare('DELETE FROM newsfeed WHERE ID=:id');
+			$eliminar=$db->prepare('UPDATE newsfeed SET status=:status WHERE id=:id');
 			$eliminar->bindValue('id',$id);
+			$eliminar->bindValue('status',0);
 			$eliminar->execute();
 		}
 
 		// método para buscar un registro, recibe como parámetro el id
 		public function obtenerLibro($id){
 			$db=Db::conectar();
-			$select=$db->prepare('SELECT * FROM newsfeed WHERE ID=:id');
+			$select=$db->prepare('SELECT * FROM newsfeed WHERE id=:id AND status=:status');
 			$select->bindValue('id',$id);
+			$select->bindValue('status',1);
 			$select->execute();
 			$feed=$select->fetch();
 			$nwf= new Newsfeed();

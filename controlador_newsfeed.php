@@ -8,14 +8,14 @@
   Basic CRUD
 *********************************/
 
-//incluye la clase Libro y CrudLibro
+//incluye la clase Newfeed y CrudNewsfeed
 require_once('crud_newsfeed.php');
 require_once('newsfeed.php');
 
 $crud= new CrudNewsfeed();
 $nf= new Newsfeed();
 
-	// si el elemento insertar no viene nulo llama al crud e inserta un libro
+	// si el elemento insertar no viene nulo llama al crud e inserta
 	if (isset($_POST['insertar'])) {
 		$nf->setNombre($_POST['nombre']);
 		$nf->setGenero($_POST['genero']);
@@ -25,7 +25,7 @@ $nf= new Newsfeed();
 		//llama a la función insertar definida en el crud
 		$crud->insertar($nf);
 		header('Location: index.php');
-	// si el elemento de la vista con nombre actualizar no viene nulo, llama al crud y actualiza el libro
+	// si el elemento de la vista con nombre actualizar no viene nulo, llama al crud y actualiza
 	}elseif(isset($_POST['actualizar'])){
 		$nf->setId($_POST['id']);
 		$nf->setNombre($_POST['nombre']);
@@ -33,8 +33,9 @@ $nf= new Newsfeed();
 		$nf->setRango($_POST['rango']);
     $nf->setCategoria($_POST['categoria']);
     $nf->setEmail($_POST['email']);
+		$crud->actualizar($nf);
 		header('Location: index.php');
-	// si la variable accion enviada por GET es == 'e' llama al crud y elimina un libro
+	// si la variable accion enviada por GET es == 'e' llama al crud y elimina
 	}elseif ($_GET['accion']=='e') {
 		$crud->eliminar($_GET['id']);
 		header('Location: index.php');
